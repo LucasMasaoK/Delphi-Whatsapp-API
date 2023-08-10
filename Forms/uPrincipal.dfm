@@ -21,6 +21,8 @@ object frmPrincipal: TfrmPrincipal
       'memoBase64')
     ScrollBars = ssVertical
     TabOrder = 0
+    ExplicitWidth = 622
+    ExplicitHeight = 312
   end
   object Panel1: TPanel
     Left = 0
@@ -29,8 +31,7 @@ object frmPrincipal: TfrmPrincipal
     Height = 121
     Align = alTop
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 144
+    ExplicitWidth = 622
     object btnAPI: TBitBtn
       Left = 264
       Top = 64

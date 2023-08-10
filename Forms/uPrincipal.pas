@@ -1,4 +1,4 @@
-unit uPrincipal;
+﻿unit uPrincipal;
 
 interface
 
@@ -59,12 +59,12 @@ begin
     memoOut.Text := outStream.DataString;
 
     restRequest.Params.AddItem('SecretKey', 'e3b0e4b8-7670-47b6-8543-47f869ccc90e', TRESTRequestParameterKind.pkHTTPHEADER);
-    restRequest.Params.AddItem('PublicToken', 'Gratis-LJZyLJzCGpLzGlZx253Z', TRESTRequestParameterKind.pkHTTPHEADER);
+    restRequest.Params.AddItem('PublicToken', '412d3280-c93a-11ed-afa1-0242ac120002', TRESTRequestParameterKind.pkHTTPHEADER);
     restRequest.Params.AddItem('DeviceToken', '8b55d631-5ade-410e-94bb-faf32eab8fde', TRESTRequestParameterKind.pkHTTPHEADER);
 
     bodyJson:= TJSONObject.Create;
     bodyJson.AddPair('number', '5565996739474');
-    bodyJson.AddPair('text', 'teste');
+    bodyJson.AddPair('text', '📃Sua nota fiscal Nº5938 foi gerada com sucesso! Confira abaixo👇');
 
 
     restRequest.AddBody(bodyJson);
