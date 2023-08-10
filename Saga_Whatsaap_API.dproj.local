@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2023/08/10 09:19:00.649,=C:\Users\Lucas Marques\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/08/10 09:19:25.542,C:\Users\Lucas Marques\Documents\Cursos\Delphi Whatsapp API\Forms\uPrincipal.pas=C:\Users\Lucas Marques\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/08/10 09:19:25.542,C:\Users\Lucas Marques\Documents\Cursos\Delphi Whatsapp API\Forms\uPrincipal.dfm=C:\Users\Lucas Marques\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2023/08/10 09:20:00.977,C:\Users\Lucas Marques\Documents\Cursos\Delphi Whatsapp API\Saga_Whatsaap_API.dproj=C:\Users\Lucas Marques\Documents\Embarcadero\Studio\Projects\Project3.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
