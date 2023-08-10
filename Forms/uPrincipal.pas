@@ -20,6 +20,7 @@ type
     restResponse: TRESTResponse;
     restRequest: TRESTRequest;
     OAuth2Authenticator1: TOAuth2Authenticator;
+    memoOut: TMemo;
     procedure btnAPIClick(Sender: TObject);
   private
     { Private declarations }
@@ -45,7 +46,7 @@ begin
   var
     outStream: TStringStream;
   var
-    bodyJson: TJSONObject;
+    bodyJson,bodyJson64: TJSONObject;
 
   nomeArquivo := '51180811154534000199550010000013461000013465-nfe.pdf';
   path := 'C:\Sistemas\SAGA_Monitor\PDF\' + nomeArquivo;
@@ -55,7 +56,7 @@ begin
     inStream := TFileStream.Create(path, fmOpenRead);
     outStream := TStringStream.Create;
     TNetEncoding.base64.Encode(inStream, outStream);
-    memoBase64.Text := outStream.DataString;
+    memoOut.Text := outStream.DataString;
 
     restRequest.Params.AddItem('SecretKey', 'e3b0e4b8-7670-47b6-8543-47f869ccc90e', TRESTRequestParameterKind.pkHTTPHEADER);
     restRequest.Params.AddItem('PublicToken', 'Gratis-LJZyLJzCGpLzGlZx253Z', TRESTRequestParameterKind.pkHTTPHEADER);
@@ -68,7 +69,16 @@ begin
 
     restRequest.AddBody(bodyJson);
     restRequest.Execute;
-    memoBase64.Text:=restResponse.JSONText;
+
+    //ENVIAR BASE64
+    restClient.BaseURL:='https://cluster.apigratis.com/api/v1/whatsapp/sendFile64';
+    bodyJson64:=TJSONObject.Create;
+    bodyJson64.AddPair('number','5565996739474');
+    bodyJson64.AddPair('path','data:application/pdf;base64,'+ outStream.DataString);
+        bodyJson64.AddPair('caption','51180811154534000199550010000013461000013465');
+    restRequest.AddBody(bodyJson64);
+    restRequest.Execute;
+     memoBase64.Text:=restResponse.JSONText;
   end;
 
 end;

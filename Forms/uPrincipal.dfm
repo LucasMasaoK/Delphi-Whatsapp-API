@@ -41,6 +41,15 @@ object frmPrincipal: TfrmPrincipal
       OnClick = btnAPIClick
     end
   end
+  object memoOut: TMemo
+    Left = 336
+    Top = 144
+    Width = 185
+    Height = 89
+    Lines.Strings = (
+      'memoOut')
+    TabOrder = 2
+  end
   object restClient: TRESTClient
     Authenticator = OAuth2Authenticator1
     BaseURL = 'https://cluster.apigratis.com/api/v1/whatsapp/sendText'
