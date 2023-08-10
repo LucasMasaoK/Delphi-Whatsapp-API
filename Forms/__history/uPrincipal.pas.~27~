@@ -1,0 +1,79 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, IdCoderMIME,
+  System.NetEncoding,
+  Vcl.ExtCtrls, REST.Types, REST.Client, Data.Bind.Components,
+  Data.Bind.ObjectScope, REST.Authenticator.OAuth.WebForm.Win,
+  REST.Authenticator.OAuth, System.JSON;
+
+type
+  TfrmPrincipal = class(TForm)
+    btnAPI: TBitBtn;
+    memoBase64: TMemo;
+    Panel1: TPanel;
+    restClient: TRESTClient;
+    restResponse: TRESTResponse;
+    restRequest: TRESTRequest;
+    procedure btnAPIClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmPrincipal.btnAPIClick(Sender: TObject);
+begin
+  var
+    nomeArquivo, path, barear1, barear2: String;
+  var
+    encoder: TIdEncoderMIME;
+  var
+    inStream: TStream;
+  var
+    outStream: TStringStream;
+  var
+    bodyJson: TJSONObject;
+
+  nomeArquivo := '51180811154534000199550010000013461000013465-nfe.pdf';
+  path := 'C:\Sistemas\SAGA_Monitor\PDF\' + nomeArquivo;
+
+  if FileExists(path) then
+  begin
+    inStream := TFileStream.Create(path, fmOpenRead);
+    outStream := TStringStream.Create;
+    TNetEncoding.base64.Encode(inStream, outStream);
+    memoBase64.Text := outStream.DataString;
+
+    restRequest.Params.AddItem('SecretKey', 'e3b0e4b8-7670-47b6-8543-47f869ccc90e', TRESTRequestParameterKind.pkHTTPHEADER);
+    restRequest.Params.AddItem('PublicToken', 'Gratis-LJZyLJzCGpLzGlZx253Z', TRESTRequestParameterKind.pkHTTPHEADER);
+    restRequest.Params.AddItem('DeviceToken', '8b55d631-5ade-410e-94bb-faf32eab8fde', TRESTRequestParameterKind.pkHTTPHEADER);
+    barear1 :=
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BsYXRhZm9ybWEuYXBpYnJhc2lsLmNvbS5ici9zb2NpYWwvZ29vZ2xlL2NhbGxiYWNrIiwiaWF0IjoxNjkxNjM0NzI4LCJleHAiOjE3MjMxNzA3MjgsIm5iZiI6MTY5MTYzN';
+    barear2 :=
+      'DcyOCwianRpIjoiM0tNNlBWY2owS285UmtqVCIsInN1YiI6IjQ1NDIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.9zF-Aljg-WTN_kOjelElqgfgqtrt7Vc4VznC2J-PmJ4';
+    restRequest.Params.AddItem('Authorization','Bearer '+ barear1 + barear2,TRESTRequestParameterKind.pkHTTPHEADER);
+
+    bodyJson:= TJSONObject.Create;
+    bodyJson.AddPair('number', '5565996739474');
+    bodyJson.AddPair('text', 'teste');
+
+    restRequest.AddBody(bodyJson);
+    restRequest.Execute;
+    memoBase64.Text:=restRequest.GetFullRequestBody();
+  end;
+
+end;
+
+end.
